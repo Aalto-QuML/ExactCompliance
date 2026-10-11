@@ -90,8 +90,6 @@ registered `phi_type` values are:
 | `katz`        | Katz centrality | linear fixed-point | pin x = 1 + αMx directly (no matrix inverse) |
 | `pagerank`    | PageRank | linear fixed-point | stochastic fixed point, degree-quotient vars |
 
-Spectral filtrations (eigenvector / subgraph centrality) are **refused** — their
-values require selecting among a spectrum, for which no finite certificate exists.
 
 Example:
 
@@ -116,7 +114,6 @@ H, p0, p1 = solve_from_graph(G, phi_type="clustering", time_limit=60)
 | `filtration_cp_fixedpoint_verify.py` | soundness + completeness for closeness / Katz / PageRank | App J |
 | `filtration_cp_matrix.py`        | consolidated correctness matrix (all encodable + refused filtrations) | App J |
 | `filtration_cp_adversarial.py`   | adversarial verification (negative controls, hard graph families) | App J |
-| `filtration_cp_truncation.py`    | finite-K truncation of refused spectral filtrations — encodable but not exact | §4.2, App J |
 | `filtration_cp_bench.py`         | triangle/clustering CP success rate + runtime on benchmarks | App J |
 | `filtration_cp_diversity.py`     | structural diversity within a degree-PD class (A: enumeration, B: sampler, C: CP-random) | App K |
 | `precompute_mu.py`               | precompute TAGG persistence-landscape conditioning vectors | App H.2.3 |
@@ -184,7 +181,7 @@ by independent recomputation + exhaustive enumeration up to isomorphism:
 python scripts/filtration_cp_verify.py            # degree, triangle, clustering, sqdeg, wedge,
                                                   #   fourclique, avgneighdeg  -> 36/36 sound, 5/5 complete
 python scripts/filtration_cp_fixedpoint_verify.py # closeness, Katz, PageRank  -> sound + complete
-python scripts/filtration_cp_matrix.py            # consolidated matrix incl. refused spectral filtrations
+python scripts/filtration_cp_matrix.py            # consolidated matrix
 ```
 
 **Table 2 (CP success rate) & Table 7 (SBM coverage)** — read directly from the shipped
